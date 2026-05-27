@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 21-Day Muzzle Conditioning Protocol | Snap To It Dog Training</title>
+<style>
+  :root {
+    --ink: #0f0f0f;
+    --ink-soft: #5a5a5a;
+    --paper: #f7f4ec;
+    --paper-warm: #efeadd;
+    --line: #d6d0bf;
+    --accent: #c4633a;
+    --accent-dark: #8a3a17;
+    --dark: #1a1f1c;
+    --dark-soft: #2b332e;
+    --highlight: #e8d878;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
+
+  /* Pitch nav banner */
+  .pitch-nav {
+    background: var(--highlight);
+    color: #5a4e0f;
+    padding: 9px 16px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .pitch-nav .label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
+  }
+  .pitch-nav a {
+    color: #5a4e0f;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(90,78,15,0.1);
+    transition: background 0.15s ease;
+  }
+  .pitch-nav a:hover { background: rgba(90,78,15,0.2); }
+  .pitch-nav a.active { background: #5a4e0f; color: var(--highlight); }
+
+  /* Nav */
+  .nav {
+    background: var(--dark);
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav .brand { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; }
+  .nav .brand span { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--dark);
+    color: white;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .hero-left .badge {
+    display: inline-block;
+    background: rgba(196, 99, 58, 0.15);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border: 1px solid rgba(196, 99, 58, 0.3);
+  }
+  .hero h1 {
+    font-size: 52px;
+    line-height: 1.05;
+    margin-bottom: 22px;
+    letter-spacing: -1.5px;
+  }
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+  }
+  .hero p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+    color: #d8d4ca;
+    max-width: 480px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px; }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 16px 26px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: transform 0.1s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); background: #d57346; }
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    padding: 16px 26px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .hero-trust { display: flex; gap: 22px; align-items: center; font-size: 13px; color: #b0a99a; flex-wrap: wrap; }
+  .hero-trust span::before { content: "✓"; color: var(--accent); margin-right: 6px; font-weight: 800; }
+
+  /* Hero video placeholder */
+  .hero-video {
+    position: relative;
+    aspect-ratio: 9/16;
+    max-width: 320px;
+    margin-left: auto;
+    background: #1a1a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+  .hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, transparent 50%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .video-overlay.hidden { opacity: 0; }
+  .play-button {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    z-index: 2;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+  }
+  .play-button:hover { transform: translate(-50%, -50%) scale(1.08); }
+  .play-button.hidden { opacity: 0; pointer-events: none; }
+  .play-button::after {
+    content: "";
+    border-left: 22px solid var(--dark);
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    margin-left: 6px;
+  }
+  .video-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    background: rgba(0,0,0,0.6);
+    padding: 8px 12px;
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+    z-index: 2;
+    transition: opacity 0.2s ease;
+  }
+  .video-label.hidden { opacity: 0; pointer-events: none; }
+  .video-label .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    margin-right: 6px;
+    text-transform: uppercase;
+  }
+
+  /* Trust strip */
+  .trust-strip {
+    background: var(--paper-warm);
+    padding: 18px 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-strip p {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .trust-strip strong { color: var(--accent-dark); font-weight: 800; }
+
+  /* Section base */
+  .section {
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section h2 {
+    font-size: 42px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .section h2 em { color: var(--accent); font-style: normal; }
+  .section .eyebrow {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .section-lead {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+
+  /* Pain points */
+  .pains-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .pain {
+    background: white;
+    padding: 22px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    position: relative;
+    padding-left: 56px;
+  }
+  .pain::before {
+    content: "•";
+    position: absolute;
+    left: 22px;
+    top: 18px;
+    color: var(--accent);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .pain p { font-size: 15px; line-height: 1.5; color: var(--ink); }
+
+  /* Author section */
+  .author-section {
+    background: var(--paper-warm);
+    padding: 80px 24px;
+  }
+  .author-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .author-photo {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #2a2f2c, #4a5a52);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  }
+  .author-photo::after {
+    content: "BECK + DAK PHOTO";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.3);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .author-right .eyebrow { color: var(--accent); }
+  .author-right h2 { font-size: 38px; line-height: 1.15; margin-bottom: 20px; }
+  .author-right .credentials {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .cred {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .cred::before {
+    content: "✦";
+    color: var(--accent);
+    margin-right: 6px;
+  }
+  .author-right .quote {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-top: 20px;
+    font-style: italic;
+  }
+
+  /* Video CTA section */
+  .video-section { background: var(--dark); padding: 80px 24px; color: white; }
+  .video-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .video-section .eyebrow { color: var(--accent); margin-bottom: 14px; }
+  .video-section h2 {
+    font-size: 42px;
+    margin-bottom: 30px;
+    line-height: 1.1;
+  }
+  .big-video {
+    position: relative;
+    aspect-ratio: 16/9;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #1a1a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  }
+  .big-video .video-label { font-size: 14px; }
+
+  /* What's inside */
+  .inside-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .inside-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .inside-num {
+    display: inline-block;
+    background: var(--dark);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    text-align: center;
+    line-height: 36px;
+    font-weight: 800;
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  .inside-card h3 { font-size: 19px; line-height: 1.3; margin-bottom: 10px; font-weight: 700; }
+  .inside-card p { font-size: 15px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* How it works */
+  .how-section { background: var(--paper-warm); padding: 80px 24px; }
+  .how-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+  }
+  .how-step {
+    background: white;
+    padding: 32px 24px;
+    border-radius: 14px;
+    text-align: left;
+  }
+  .how-num {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+  }
+  .how-step h3 { font-size: 20px; margin-bottom: 10px; }
+  .how-step p { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* Testimonials */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .testimonial {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 26px 22px;
+    border-radius: 14px;
+  }
+  .stars { color: var(--accent); margin-bottom: 12px; font-size: 16px; }
+  .testimonial p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+  .person { display: flex; gap: 12px; align-items: center; }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #b0a99a 0%, #8a8377 100%);
+    flex-shrink: 0;
+  }
+  .person-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .person-detail { font-size: 12px; color: var(--ink-soft); }
+
+  /* Pricing */
+  .pricing-section { padding: 80px 24px; background: var(--paper); }
+  .pricing-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .pricing-card {
+    background: white;
+    border: 2px solid var(--dark);
+    border-radius: 18px;
+    padding: 40px 32px;
+    margin-top: 40px;
+    text-align: left;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.06);
+  }
+  .pricing-tag {
+    position: absolute;
+    top: -16px;
+    left: 32px;
+    background: var(--accent);
+    color: white;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .pricing-card h3 { font-size: 26px; margin-bottom: 8px; }
+  .pricing-card .subtitle { font-size: 15px; color: var(--ink-soft); margin-bottom: 22px; }
+  .pricing-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .price-big { font-size: 64px; font-weight: 800; color: var(--dark); line-height: 1; letter-spacing: -2px; }
+  .price-strike { font-size: 22px; text-decoration: line-through; color: var(--ink-soft); }
+  .price-note { font-size: 13px; color: var(--ink-soft); margin-bottom: 24px; }
+  .pricing-cta {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 20px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .guarantee-box {
+    background: var(--paper-warm);
+    padding: 18px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .guarantee-box strong { color: var(--accent-dark); }
+
+  /* FAQ */
+  .faq-section { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 22px 0;
+  }
+  .faq-q {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .faq-a { font-size: 15px; color: var(--ink-soft); line-height: 1.55; }
+
+  /* Footer CTA */
+  .footer-cta {
+    background: var(--dark);
+    color: white;
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .footer-cta h2 {
+    font-size: 44px;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-cta h2 em { color: var(--accent); font-style: normal; }
+  .footer-cta p {
+    font-size: 17px;
+    color: #b0a99a;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer {
+    background: #0a0c0b;
+    color: #7a7a7a;
+    padding: 30px 24px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  @media (max-width: 800px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 36px; }
+    .hero-video { max-width: 280px; margin: 0 auto; }
+    .section { padding: 50px 20px; }
+    .section h2 { font-size: 30px; }
+    .pains-grid { grid-template-columns: 1fr; }
+    .author-inner { grid-template-columns: 1fr; }
+    .author-right h2 { font-size: 28px; }
+    .video-section h2 { font-size: 28px; }
+    .inside-grid { grid-template-columns: 1fr; }
+    .how-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .price-big { font-size: 48px; }
+    .footer-cta h2 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pitch-nav">
+  <span class="label">★ PITCH MODE</span>
+  <a href="/" class="active">Landing</a>
+  <a href="/quiz/">Quiz</a>
+  <a href="/compare/">Comparison</a>
+  <a href="/dashboard/">Dashboard</a>
+</div>
+
+<nav class="nav">
+  <div class="brand">SNAP TO IT <span>·</span> DOG TRAINING</div>
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <a href="/quiz/" style="color: white; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.5px;">TAKE THE QUIZ</a>
+    <a href="#pricing" class="nav-cta" style="text-decoration: none; display: inline-block;">Get the Protocol</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <span class="badge">★ The Reactive Dog Owner's Survival Tool</span>
+      <h1>The dog who hates the vet <em>doesn't have to.</em></h1>
+      <p>A 21-day at-home conditioning protocol that turns the muzzle from a panic trigger into a tool your dog actually accepts. Built by a certified balanced trainer who lived it with her own reactive dog.</p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn-primary" style="text-decoration: none; display: inline-block;">Get the Protocol — $47</a>
+        <a href="/quiz/" class="btn-secondary" style="text-decoration: none; display: inline-block;">Take the 60-sec quiz first</a>
+      </div>
+      <div class="hero-trust">
+        <span>30-day money-back guarantee</span>
+        <span>Instant download</span>
+        <span>Lifetime access</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-video" id="heroVideo">
+        <video id="heroVideoEl" playsinline preload="metadata" poster="">
+          <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" id="heroOverlay"></div>
+        <div class="play-button" id="heroPlayBtn" onclick="playHeroVideo()"></div>
+        <div class="video-label" id="heroLabel">
+          <span class="tag">VIDEO</span>Beck explains why most owners get muzzle training wrong
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <p>Trusted by <strong>200,000+</strong> dog owners following @ohsnapitsbeck across IG · TikTok · YouTube</p>
+</div>
+
+<!-- PAINS -->
+<section class="section">
+  <div class="eyebrow">If you're reading this</div>
+  <h2>You already know your dog needs this. <em>You just don't know where to start.</em></h2>
+  <p class="section-lead">If any of these sound like you, this protocol was built for exactly your situation.</p>
+  <div class="pains-grid">
+    <div class="pain"><p>Your vet has asked you to muzzle your dog, and you have no idea how to do it without making things worse.</p></div>
+    <div class="pain"><p>Your dog has bite history — to a person, to another dog — and you're white-knuckling every public interaction.</p></div>
+    <div class="pain"><p>The groomer won't take your dog anymore, or only with sedation.</p></div>
+    <div class="pain"><p>You bought a muzzle, slapped it on, and your dog freaked out. Now they panic at the sight of it.</p></div>
+    <div class="pain"><p>You have a reactive dog and you want to walk them safely past triggers without managing the leash like a hostage situation.</p></div>
+    <div class="pain"><p>You're a responsible owner who wants this skill in your back pocket — before something happens, not after.</p></div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author-section">
+  <div class="author-inner">
+    <div class="author-photo"></div>
+    <div class="author-right">
+      <div class="eyebrow">Built by Beck</div>
+      <h2>Years of reactive dog work, distilled into a protocol you can actually follow.</h2>
+      <div class="credentials">
+        <div class="cred">Certified Balanced Trainer</div>
+        <div class="cred">Starmark Academy</div>
+        <div class="cred">Louisville, KY</div>
+      </div>
+      <p class="quote">"I had a severely reactive dog named Dak. The muzzle isn't what fixed him — it's the tool that made his rehabilitation possible. Without it I would have given up. I built this protocol from years of using it on my own dog and on hundreds of clients."</p>
+    </div>
+  </div>
+</section>
+
+<!-- BIG VIDEO -->
+<section class="video-section">
+  <div class="video-inner">
+    <div class="eyebrow">See it in action</div>
+    <h2>Watch the conditioning protocol on a real dog.</h2>
+    <div class="big-video" id="bigVideo">
+      <video id="bigVideoEl" playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <source src="video.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay" id="bigOverlay"></div>
+      <div class="play-button" id="bigPlayBtn" onclick="playBigVideo()"></div>
+      <div class="video-label" id="bigLabel">
+        <span class="tag">WALKTHROUGH</span>Day 1 to Day 21 — Beck conditions a muzzle-naive dog from scratch
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="section">
+  <div class="eyebrow">What you get</div>
+  <h2>Everything you need. <em>Nothing you don't.</em></h2>
+  <p class="section-lead">Stop piecing together free YouTube videos and conflicting Reddit threads. This is the full protocol in one place.</p>
+  <div class="inside-grid">
+    <div class="inside-card">
+      <div class="inside-num">1</div>
+      <h3>The 28-page conditioning protocol</h3>
+      <p>Day-by-day exercises. What to do, what to look for, when to advance, when to back up. Every day, every step, no guesswork.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-num">2</div>
+      <h3>Video walkthroughs of every key step</h3>
+      <p>Watch Beck do it on real dogs so you know what success looks like — and what to do when your dog doesn't read the script.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-num">3</div>
+      <h3>Muzzle selection cheat sheet</h3>
+      <p>Every common type — basket, bite, sleeve — with pros, cons, and which dogs each one suits. Stop wasting $40 on the wrong muzzle.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-num">4</div>
+      <h3>The troubleshooting guide</h3>
+      <p>The 8 most common sticking points and exactly how to fix them. Built from hundreds of real client cases.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-num">5</div>
+      <h3>"Already gone wrong" recovery track</h3>
+      <p>If your dog already has a bad association with muzzles, this is the protocol for undoing it. Most courses won't touch this. Beck does.</p>
+    </div>
+    <div class="inside-card">
+      <div class="inside-num">6</div>
+      <h3>Lifetime access + free updates</h3>
+      <p>Pay once, own forever. Every improvement, addition, or new video is added to your library at no cost.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="eyebrow">How to get started</div>
+    <h2 style="font-size: 42px; line-height: 1.1;">Three steps. <em style="color: var(--accent); font-style: normal;">Twenty-one days.</em></h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <h3>Get instant access</h3>
+        <p>Buy the protocol and get the full PDF + video library in your inbox within 60 seconds.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <h3>Follow the daily exercises</h3>
+        <p>5-10 minutes a day. Each day builds on the last. No guessing, no improvising, no online drama.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <h3>Watch your dog accept it</h3>
+        <p>By Day 21, your dog puts the muzzle on willingly. By Day 30, it's a non-event. Vet visits, walks, grooming — all unlocked.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="eyebrow">Real owners, real outcomes</div>
+  <h2>From "won't go near it" to <em>"puts it on himself."</em></h2>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"My dog used to lose his mind at the vet. After three weeks of this protocol he walks in wearing the muzzle and lets them draw blood. I cried."</p>
+      <div class="person">
+        <div class="avatar"></div>
+        <div>
+          <div class="person-name">Sarah K.</div>
+          <div class="person-detail">Reactive lab owner · Texas</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"Wish I'd had this two years ago. We did everything wrong. Started over with Beck's protocol and it actually worked."</p>
+      <div class="person">
+        <div class="avatar"></div>
+        <div>
+          <div class="person-name">Marcus D.</div>
+          <div class="person-detail">Pit bull rescue · NYC</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p>"I followed every YouTube video out there and made it worse. This protocol is the only thing that gave me a real plan."</p>
+      <div class="person">
+        <div class="avatar"></div>
+        <div>
+          <div class="person-name">Jenna R.</div>
+          <div class="person-detail">Aussie owner · Colorado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:13px; color: var(--ink-soft); text-align: center; margin-top: 30px; font-style: italic;">[Pitch note: Beck swaps these for real testimonials before launch.]</p>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="eyebrow">Launch pricing</div>
+    <h2>This is what works. <em>This is what it costs.</em></h2>
+    <div class="pricing-card">
+      <div class="pricing-tag">Save $50</div>
+      <h3>The 21-Day Muzzle Conditioning Protocol</h3>
+      <p class="subtitle">Full PDF + video library + troubleshooting guide + lifetime access</p>
+      <div class="pricing-row">
+        <span class="price-big">$47</span>
+        <span class="price-strike">$97</span>
+      </div>
+      <p class="price-note">One-time payment. Instant download. No subscription.</p>
+      <button class="pricing-cta">Get Instant Access →</button>
+      <div class="guarantee-box">
+        <strong>30-day money-back guarantee.</strong> Follow the protocol for 30 days. If your dog isn't accepting the muzzle, email us for a full refund. Keep the PDF either way — no questions asked.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="eyebrow" style="text-align: center; margin-bottom: 16px;">Common questions</div>
+  <h2 style="text-align: center; font-size: 38px; margin-bottom: 40px;">Before you buy.</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">My dog has never worn a muzzle before — is this still for me?</div>
+    <div class="faq-a">Yes. The protocol starts at zero. Day 1 is "your dog has never seen this object." We build from there. Most buyers are starting from scratch.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">My dog already hates muzzles. Is it too late?</div>
+    <div class="faq-a">Not at all. The "Already Gone Wrong" recovery track is built specifically for dogs with a bad muzzle history. Most courses ignore this scenario. We don't.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What kind of muzzle do I need?</div>
+    <div class="faq-a">The protocol works with any properly-fitted basket muzzle. The included Muzzle Selection Cheat Sheet walks you through exactly which type to buy for your dog's breed, snout shape, and use case.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Is this balanced training? Are you going to use punishment?</div>
+    <div class="faq-a">No. Muzzle conditioning specifically is built on classical conditioning and positive associations — it has to be, or it doesn't work. Beck's balanced training methodology applies elsewhere in her work.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How long does it actually take?</div>
+    <div class="faq-a">The full protocol is 21 days with 5-10 minutes of work per day. Most dogs are wearing the muzzle comfortably by Day 14. Some take longer — that's why the troubleshooting guide is included.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What if my dog is aggressive?</div>
+    <div class="faq-a">This protocol is built for exactly that situation. The whole point of muzzle conditioning is to safely manage dogs who present bite risk. If you're managing aggression, this is more important for you than for anyone else.</div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="eyebrow" style="color: var(--accent); margin-bottom: 14px;">Stop guessing</div>
+  <h2>Your dog deserves a tool that <em>actually works.</em></h2>
+  <p>Get the protocol that's helped hundreds of reactive dog owners stop white-knuckling every outing.</p>
+  <a href="#pricing" class="btn-primary" style="padding: 20px 32px; font-size: 16px; text-decoration: none; display: inline-block;">Get the Protocol — $47 →</a>
+  <p style="font-size: 13px; color: #7a7a7a; margin-top: 20px;">30-day money-back guarantee · Instant download · Lifetime access</p>
+</section>
+
+<footer class="footer">
+  © Snap To It Dog Training · Louisville, KY · ohheyitsmebecky@gmail.com
+</footer>
+
+<script>
+  function playHeroVideo() {
+    const v = document.getElementById('heroVideoEl');
+    const btn = document.getElementById('heroPlayBtn');
+    const label = document.getElementById('heroLabel');
+    const overlay = document.getElementById('heroOverlay');
+    v.setAttribute('controls', '');
+    v.play();
+    btn.classList.add('hidden');
+    label.classList.add('hidden');
+    overlay.classList.add('hidden');
+  }
+  function playBigVideo() {
+    const v = document.getElementById('bigVideoEl');
+    const btn = document.getElementById('bigPlayBtn');
+    const label = document.getElementById('bigLabel');
+    const overlay = document.getElementById('bigOverlay');
+    v.setAttribute('controls', '');
+    v.play();
+    btn.classList.add('hidden');
+    label.classList.add('hidden');
+    overlay.classList.add('hidden');
+  }
+</script>
+
+</body>
+</html>

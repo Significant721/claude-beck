@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Should Your Dog Be Wearing a Muzzle? | Beck Dog Training</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --paper: #fafaf7;
+    --line: #e8e6e0;
+    --accent: #2d4a3e;
+    --accent-soft: #3d6253;
+    --warn: #c4633a;
+    --success: #2d4a3e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+    min-height: 100vh;
+  }
+  .header { text-align: center; margin-bottom: 32px; }
+  .brand { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; font-weight: 500; }
+  .progress-track { height: 4px; background: var(--line); border-radius: 2px; margin: 24px 0 40px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--accent); transition: width 0.3s ease; width: 0%; }
+
+  /* Intro screen */
+  .intro h1 { font-size: 36px; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px; font-weight: 700; }
+  .intro .subtitle { font-size: 18px; color: var(--ink-soft); margin-bottom: 28px; }
+  .intro .meta { display: flex; gap: 24px; margin-bottom: 32px; font-size: 14px; color: var(--ink-soft); }
+  .intro .meta span::before { content: "•"; margin-right: 8px; color: var(--accent); }
+  .intro .body-text { font-size: 16px; color: var(--ink); margin-bottom: 16px; }
+  .intro .body-text strong { color: var(--accent); }
+
+  /* Questions */
+  .question { display: none; }
+  .question.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .q-number { font-size: 13px; color: var(--ink-soft); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 12px; font-weight: 500; }
+  .q-text { font-size: 24px; line-height: 1.3; margin-bottom: 8px; font-weight: 600; letter-spacing: -0.3px; }
+  .q-hint { font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    background: white;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--ink);
+    font-family: inherit;
+  }
+  .option:hover { border-color: var(--accent-soft); background: #f5f3ed; }
+  .option:active { transform: scale(0.99); }
+
+  /* Email gate */
+  .email-gate h2 { font-size: 28px; line-height: 1.2; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.3px; }
+  .email-gate p { font-size: 16px; color: var(--ink-soft); margin-bottom: 24px; }
+  .email-gate .form { display: flex; flex-direction: column; gap: 12px; }
+  .email-gate input {
+    padding: 16px 18px;
+    font-size: 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: white;
+    font-family: inherit;
+    color: var(--ink);
+  }
+  .email-gate input:focus { outline: none; border-color: var(--accent); }
+  .email-gate .privacy { font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
+
+  /* Buttons */
+  .btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+    width: 100%;
+  }
+  .btn:hover { background: var(--accent-soft); }
+  .btn:active { transform: scale(0.99); }
+
+  /* Result */
+  .result { display: none; }
+  .result.active { display: block; }
+  .result-card {
+    background: white;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin-bottom: 24px;
+  }
+  .result-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .result-badge.high { background: #c4633a; color: white; }
+  .result-badge.medium { background: #d4a017; color: white; }
+  .result-badge.low { background: #e4ede9; color: var(--accent); }
+  .result h2 { font-size: 28px; line-height: 1.2; margin-bottom: 16px; font-weight: 700; letter-spacing: -0.3px; }
+  .result .score-line { font-size: 16px; color: var(--ink-soft); margin-bottom: 20px; }
+  .result .score-line strong { color: var(--ink); }
+  .result h3 { font-size: 17px; margin: 20px 0 10px; font-weight: 600; }
+  .result p { font-size: 16px; color: var(--ink); margin-bottom: 14px; }
+  .result ul { margin: 0 0 16px 20px; }
+  .result li { font-size: 16px; color: var(--ink); margin-bottom: 8px; line-height: 1.5; }
+
+  .product-card {
+    background: linear-gradient(180deg, #2d4a3e 0%, #3d6253 100%);
+    color: white;
+    border-radius: 14px;
+    padding: 28px 24px;
+    margin-bottom: 16px;
+  }
+  .product-card .label { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.85; margin-bottom: 10px; font-weight: 500; }
+  .product-card h3 { font-size: 24px; line-height: 1.2; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.3px; color: white; }
+  .product-card .desc { font-size: 15px; opacity: 0.92; margin-bottom: 18px; }
+  .product-card .features { list-style: none; margin: 0 0 20px 0; padding: 0; }
+  .product-card .features li { padding: 6px 0; font-size: 14px; opacity: 0.95; padding-left: 22px; position: relative; }
+  .product-card .features li::before { content: "✓"; position: absolute; left: 0; color: #a8d4c0; font-weight: 700; }
+  .product-card .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+  .product-card .price { font-size: 32px; font-weight: 700; }
+  .product-card .strike { font-size: 16px; text-decoration: line-through; opacity: 0.6; }
+  .product-card .btn { background: white; color: var(--accent); }
+  .product-card .btn:hover { background: #f0ede5; }
+
+  .disclaimer { font-size: 13px; color: var(--ink-soft); text-align: center; margin-top: 8px; }
+
+  /* Demo banner */
+  .demo-banner {
+    background: #fff4d6;
+    color: #806314;
+    padding: 8px 14px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #f0e0a8;
+  }
+  .pitch-nav {
+    background: #e8d878;
+    color: #5a4e0f;
+    padding: 9px 16px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .pitch-nav .label {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
+  }
+  .pitch-nav a {
+    color: #5a4e0f;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(90,78,15,0.1);
+  }
+  .pitch-nav a:hover { background: rgba(90,78,15,0.2); }
+  .pitch-nav a.active { background: #5a4e0f; color: #e8d878; }
+
+  @media (max-width: 500px) {
+    .intro h1 { font-size: 28px; }
+    .q-text { font-size: 20px; }
+    .result h2 { font-size: 24px; }
+    .product-card h3 { font-size: 20px; }
+    .product-card .price { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pitch-nav">
+  <span class="label">★ PITCH MODE</span>
+  <a href="/">Landing</a>
+  <a href="/quiz/" class="active">Quiz</a>
+  <a href="/compare/">Comparison</a>
+  <a href="/dashboard/">Dashboard</a>
+</div>
+
+<div class="container">
+
+  <div class="header">
+    <div class="brand">Snap To It Dog Training</div>
+  </div>
+
+  <!-- INTRO -->
+  <div id="intro" class="intro screen">
+    <h1>Should your dog be wearing a muzzle?</h1>
+    <p class="subtitle">A quick assessment from a certified balanced trainer who's spent years working with reactive, bitey, and complicated dogs.</p>
+    <div class="meta">
+      <span>6 questions</span>
+      <span>~60 seconds</span>
+      <span>Free</span>
+    </div>
+    <p class="body-text">Muzzles aren't punishment. They're a <strong>safety tool that lets your dog do more</strong> — vet visits, grooming, walks past triggers, time around new people — without anyone getting hurt.</p>
+    <p class="body-text">But most owners don't know if their dog actually needs one, what kind, or how to introduce it without making things worse. This assessment gives you a straight answer.</p>
+    <br>
+    <button class="btn" onclick="startQuiz()">Start the assessment →</button>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-track" id="progressTrack" style="display:none;">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div id="questions"></div>
+
+  <!-- RESULT -->
+  <div id="result" class="result screen"></div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    text: "Has your dog ever bitten or attempted to bite a person?",
+    hint: "Including nips, snaps, or air-bites — not just full bites.",
+    options: [
+      { label: "Never", score: 0 },
+      { label: "Once, in a clearly stressful situation", score: 4 },
+      { label: "A few times, in different situations", score: 8 },
+      { label: "Yes — and it's a recurring concern", score: 12 }
+    ]
+  },
+  {
+    text: "Has your dog ever bitten or attempted to bite another animal?",
+    hint: "Other dogs, cats, livestock, wildlife.",
+    options: [
+      { label: "Never", score: 0 },
+      { label: "Once or twice", score: 3 },
+      { label: "Multiple times", score: 6 },
+      { label: "Yes — it's a known issue I manage around", score: 9 }
+    ]
+  },
+  {
+    text: "How does your dog handle vet visits and grooming?",
+    hint: "Exams, blood draws, nail trims, baths, professional grooming.",
+    options: [
+      { label: "Totally fine, no issues", score: 0 },
+      { label: "Stressed but manageable", score: 3 },
+      { label: "Has to be heavily restrained or sedated", score: 6 },
+      { label: "Vet or groomer has refused them, or required a muzzle", score: 9 }
+    ]
+  },
+  {
+    text: "Does your dog react to people, dogs, or other triggers on walks?",
+    hint: "Lunging, barking, snapping, freezing, intense focus.",
+    options: [
+      { label: "No, walks are calm", score: 0 },
+      { label: "Mild reactions, easy to redirect", score: 2 },
+      { label: "Strong reactions that are hard to manage", score: 6 },
+      { label: "We avoid walks or only walk at unusual hours/places", score: 9 }
+    ]
+  },
+  {
+    text: "Has your dog had any prior experience with a muzzle?",
+    hint: "Including slammed on without conditioning, used as punishment, or used in a trauma moment.",
+    options: [
+      { label: "No prior experience with muzzles", score: 0 },
+      { label: "Wore one briefly with no real reaction", score: 1 },
+      { label: "Has had a bad experience that needs to be undone", score: 5 }
+    ]
+  },
+  {
+    text: "Why are you taking this assessment today?",
+    hint: "What brought you here?",
+    options: [
+      { label: "Something specific happened recently and I'm worried", score: 4 },
+      { label: "I want to be proactive — better to have it and not need it", score: 2 },
+      { label: "A vet, trainer, or behaviorist recommended it", score: 5 },
+      { label: "Just curious / learning", score: 0 }
+    ]
+  }
+];
+
+let currentQ = 0;
+let totalScore = 0;
+let answers = [];
+
+function startQuiz() {
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('progressTrack').style.display = 'block';
+  renderQuestions();
+  showQuestion(0);
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions');
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'question screen';
+    div.id = `q-${i}`;
+    div.innerHTML = `
+      <div class="q-number">Question ${i + 1} of ${questions.length}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-hint">${q.hint}</div>
+      <div class="options">
+        ${q.options.map((opt, j) => `<button class="option" onclick="selectAnswer(${i}, ${j})">${opt.label}</button>`).join('')}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function showQuestion(n) {
+  document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+  const target = document.getElementById(`q-${n}`);
+  if (target) target.classList.add('active');
+  const pct = ((n) / questions.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function selectAnswer(qIdx, optIdx) {
+  answers[qIdx] = optIdx;
+  totalScore += questions[qIdx].options[optIdx].score;
+  if (qIdx + 1 < questions.length) {
+    currentQ = qIdx + 1;
+    showQuestion(currentQ);
+  } else {
+    document.getElementById('progressBar').style.width = '100%';
+    showResult();
+  }
+}
+
+function submitEmail() {
+  const email = document.getElementById('email').value.trim();
+  if (!email || !email.includes('@')) {
+    alert('Please enter a valid email');
+    return;
+  }
+  // In production: send to ConvertKit/Beehiiv with tags based on score + answers
+  document.getElementById('emailCaptureCard').innerHTML = `
+    <div style="text-align:center; padding: 20px 0;">
+      <div style="font-size:32px; margin-bottom:10px;">✓</div>
+      <h3 style="font-size:18px; margin-bottom:8px; color:#2d4a3e;">You're on the list.</h3>
+      <p style="color:#4a4a4a; font-size:14px;">Your assessment + the muzzle myths guide are on their way.</p>
+    </div>
+  `;
+}
+
+function showResult() {
+  let tier, badge, headline, summary, bullets;
+
+  if (totalScore >= 25) {
+    tier = 'high';
+    badge = 'High Priority';
+    headline = "Your dog should be muzzle-trained — and soon.";
+    summary = `Based on your answers, you're in the <strong>highest-priority group</strong>. You're managing real risk every day — to your dog, to other people or animals, and to your own peace of mind.`;
+    bullets = [
+      "Your dog has demonstrated behavior that creates safety risk in everyday situations (vet, grooming, walks, or around people).",
+      "Without conditioning, you're one stressful moment away from a serious incident — and reactive muzzle-slamming will make everything worse.",
+      "A properly conditioned muzzle actually expands what your dog can do, not what they can't. Vet visits become possible. Walks get easier. You stop white-knuckling every outing.",
+      "This is exactly the situation muzzle conditioning was built for. It's not optional anymore — it's protective."
+    ];
+  } else if (totalScore >= 12) {
+    tier = 'medium';
+    badge = 'Recommended';
+    headline = "Muzzle training would significantly help your dog.";
+    summary = `Based on your answers, muzzle conditioning is <strong>strongly recommended</strong> for your situation. You're not in crisis, but you have real patterns that muzzle training would address.`;
+    bullets = [
+      "You have specific situations — vet visits, grooming, certain triggers — where things go sideways and you're managing around them.",
+      "Most owners in your position wait until something bad happens to start training. By then, you're conditioning under stress, which is the hardest possible time.",
+      "Building muzzle conditioning now means you have it ready when you need it. And the dog learns to associate the muzzle with calm states, not emergencies.",
+      "You'll also gain confidence in situations you currently avoid."
+    ];
+  } else if (totalScore >= 5) {
+    tier = 'low';
+    badge = 'Preventive';
+    headline = "Your dog doesn't urgently need it — but it's still worth doing.";
+    summary = `Based on your answers, muzzle conditioning would be <strong>preventive</strong> for your dog. "Doesn't need it right now" is different from "shouldn't have it."`;
+    bullets = [
+      "Even well-behaved dogs end up needing a muzzle eventually — emergency vet visits, injuries, unexpected situations.",
+      "A dog conditioned in calm circumstances learns the muzzle as a neutral or positive thing. A dog muzzled in an emergency learns the muzzle as fear.",
+      "This is true preventive work — the kind of thing responsible owners do because their future self will thank them.",
+      "If you're already a thoughtful owner, this is a low-cost, high-value skill to have in your back pocket."
+    ];
+  } else {
+    tier = 'low';
+    badge = 'Optional';
+    headline = "Your dog likely doesn't need muzzle training right now.";
+    summary = `Based on your answers, muzzle conditioning is <strong>genuinely optional</strong> for you. Your dog handles the world well.`;
+    bullets = [
+      "Muzzle conditioning is genuinely optional for dogs in your situation.",
+      "That said, it's a cheap insurance policy. Dogs change. Circumstances change. An emergency vet visit five years from now is a much smoother experience if your dog already knows the muzzle is fine.",
+      "If you ever decide to do it, the protocol still applies — it just won't be urgent.",
+      "We won't push the muzzle product on you — go enjoy your easy dog."
+    ];
+  }
+
+  const productSection = tier === 'low' && totalScore < 5 ? '' : `
+    <div class="product-card">
+      <div class="label">Built for your situation</div>
+      <h3>The 21-Day Muzzle Conditioning Protocol</h3>
+      <p class="desc">A complete step-by-step program for muzzle conditioning any dog — from "never seen one" to "puts it on happily." From a certified balanced trainer who's done this with her own reactive dog and hundreds of clients.</p>
+      <ul class="features">
+        <li>28-page PDF protocol with daily exercises</li>
+        <li>Video walkthroughs of every key step</li>
+        <li>Troubleshooting guide for common sticking points</li>
+        <li>Muzzle selection cheat sheet (every common type)</li>
+        <li>Lifetime access + free updates</li>
+        <li>30-day money-back guarantee — if you don't see your dog accepting the muzzle, you get a full refund</li>
+      </ul>
+      <div class="price-row">
+        <span class="price">$47</span>
+        <span class="strike">$97</span>
+      </div>
+      <a href="/#pricing" class="btn" style="text-decoration: none; display: inline-block; text-align: center;">Get the protocol →</a>
+      <p class="disclaimer" style="color: rgba(255,255,255,0.7); margin-top: 12px;">Instant download. Works on any device.</p>
+    </div>
+  `;
+
+  document.getElementById('result').innerHTML = `
+    <div class="result-card">
+      <span class="result-badge ${tier}">${badge}</span>
+      <h2>${headline}</h2>
+      <p class="score-line">${summary}</p>
+      <h3>Here's what your answers tell us:</h3>
+      <ul>${bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+    </div>
+    ${productSection}
+  `;
+  document.getElementById('result').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
